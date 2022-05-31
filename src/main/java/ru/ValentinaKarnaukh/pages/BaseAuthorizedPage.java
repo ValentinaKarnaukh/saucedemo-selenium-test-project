@@ -1,5 +1,6 @@
 package ru.ValentinaKarnaukh.pages;
 
+import io.qameta.allure.Step;
 import org.hamcrest.core.IsEqual;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -49,62 +50,68 @@ public class BaseAuthorizedPage extends BasePage {
     }
 
 
-    public BaseAuthorizedPage clickOpenReactMenuButton() {
+    @Step("Click on the button that opens the react menu")
+    public BaseAuthorizedPage clickOpenReactMenuButton(){
         reactMenuOpenButton.click();
         return this;
     }
 
-    public BaseAuthorizedPage checkAllItemsInReactMenu() {
+    @Step("Checking 'all items' category in react menu")
+    public BaseAuthorizedPage checkAllItemsInReactMenu(){
         assertThat(allItemTitle.getAccessibleName(), IsEqual.equalTo("ALL ITEMS"));
         return this;
     }
 
-    public BaseAuthorizedPage checkAboutInReactMenu() {
+    @Step("Checking 'about' category in react menu")
+    public BaseAuthorizedPage checkAboutInReactMenu(){
         assertThat(aboutTitle.getAccessibleName(), IsEqual.equalTo("ABOUT"));
         return this;
     }
 
-    public BaseAuthorizedPage checkLogoutInReactMenu() {
+    @Step("Checking 'logout' category in react menu")
+    public BaseAuthorizedPage checkLogoutInReactMenu(){
         assertThat(logoutTitle.getAccessibleName(), IsEqual.equalTo("LOGOUT"));
         return this;
     }
 
-    public BaseAuthorizedPage checkResetInReactMenu() {
+    @Step("Checking 'reset' category in react menu")
+    public BaseAuthorizedPage checkResetInReactMenu(){
         assertThat(resetTitle.getAccessibleName(), IsEqual.equalTo("RESET APP STATE"));
         return this;
     }
 
-    public BaseAuthorizedPage clickCloseReactMenuButton() {
+    @Step("Click on the button that closes the react menu")
+    public BaseAuthorizedPage clickCloseReactMenuButton(){
         reactMenuCloseButton.click();
         return this;
     }
 
-    public BaseAuthorizedPage goLogout() {
+    @Step("Logout")
+    public LoginPage goLogout(){
         reactMenuOpenButton.click();
+        driver.manage().timeouts().getPageLoadTimeout();
         logout.click();
         assertThat(driver.getCurrentUrl(), equalTo("https://www.saucedemo.com/"));
-        return this;
+        return new LoginPage(driver);
     }
 
-    public BaseAuthorizedPage goToTwitter() {
+    @Step("Go to twitter")
+    public void goToTwitter(){
         twitterButton.click();
         switchToTheNextTab(driver);
         assertThat(driver.getCurrentUrl(), containsString("twitter.com"));
-        return this;
     }
-
-    public BaseAuthorizedPage goToFacebook() {
+    @Step("Go to facebook")
+    public void goToFacebook(){
         facebookButton.click();
         switchToTheNextTab(driver);
         assertThat(driver.getCurrentUrl(), containsString("facebook.com"));
-        return this;
-
     }
 
-    public BaseAuthorizedPage goToLinkedIn() {
+    @Step("Go to LinkedIn")
+    public void goToLinkedIn(){
         linkedInButton.click();
         switchToTheNextTab(driver);
         assertThat(driver.getCurrentUrl(), containsString("linkedin.com"));
-        return this;
     }
 }
